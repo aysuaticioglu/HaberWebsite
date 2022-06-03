@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+         
+            YorumlarDoldur();
+           
+        });
+        function YorumlarDoldur() {
+            $.ajax({
+                url: '/Yorumlar/YorumListele',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                success: function (gelenveri) {
+                    var yorumHtml = "";
+                    $.each(gelenveri.Yorumlar, function (i, val) {
+                       
+                        if (val.durum == true)
+                        {
+                            yorumHtml += '<tr><td>' + val.id + '</td><td>' + val.isim + '</td><td>' + val.yorum + '</td><td>' + val.tarih + '</td><td>' + val.haberId +
+                                '</td><td>' +
+                           
+
+                                '<button  class="btn btn-warning" onclick="YorumlarPasif('+val.id+')">PASİF</button> ' +
+
+                                '</td><td><button  class="btn btn-danger" id="sil" onclick="YorumlarSil('+val.id+')">SİL</button></td></tr>';
+                        }
+                        else
+                        {
+                            yorumHtml += '<tr><td>' + val.id + '</td><td>' + val.isim + '</td><td>' + val.yorum + '</td><td>' + val.tarih + '</td><td>' + val.haberId +
+                                '</td><td> ' +
+                                '<button  class="btn btn-success"  onclick="YorumlarAktif('+val.id+')">AKTİF</button>' +
+
+                                
+                                '</td><td><button   class="btn btn-danger" id="sil" onclick="YorumlarSil('+val.id+')">SİL</button></td></tr>';
+                        }
+                    });
+                    $("#yorumlartablo").html(yorumHtml);
+                },
+                error: function hata() { }
+        });
+        }
+        function YorumlarAktif(id) {
+            debugger;
+            $.ajax({
+                url: '/Yorumlar/YorumAktif',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:id},
+            success: function (gelenveri) {
+                YorumlarDoldur();
+                
+                },
+                error: function hata() { }
+        });
+        }
+        function YorumlarPasif(id) {
+            debugger;
+            $.ajax({
+                url: '/Yorumlar/YorumPasif',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:id},
+            success: function (gelenveri) {
+                YorumlarDoldur();
+               
+                },
+                error: function hata() { }
+        });
+        }
+          function YorumlarSil(id) {
+            debugger;
+            $.ajax({
+                url: '/Yorumlar/YorumSil',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:id},
+            success: function (gelenveri) {
+                YorumlarDoldur();
+               
+                },
+                error: function hata() { }
+        });
+        }
+    </script>
+}
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-row">
+                    <div class="section-title">
+                        <h1 class="title">HABER YORUMLAR</h1>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>İSİM</th>
+                                <th>YORUM</th>
+                                <th>TARİH</th>
+                                <th>HABER ID</th>
+                                <th>DURUM</th>
+                                <th>SİL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yorumlartablo"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

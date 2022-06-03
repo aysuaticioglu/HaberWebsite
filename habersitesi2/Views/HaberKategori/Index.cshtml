@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <h2 style="margin-left:30px">@ViewBag.kategori[0].kategoriAd</h2>
+            <div class="col-md-12">
+                <hr />
+                <div class="col-md-8">
+                    <div class="post post-thumb">
+                        <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[0].id, kategoriId=ViewBag.kategori[0].kategoriId})"><img src="~/Images/@ViewBag.kategori[0].fotografAdi" height="400"></a>
+                        <div class="post-body">
+
+                            <h3 class="post-title title-lg"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[0].id, kategoriId=ViewBag.kategori[0].kategoriId})">@ViewBag.kategori[0].baslik</a></h3>
+                            <ul class="post-meta">
+
+                                <li><h5 style="color:white">@ViewBag.kategori[0].altbaslik</h5></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="post ">
+                        <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[1].id, kategoriId=ViewBag.kategori[1].kategoriId})"><img src="~/Images/@ViewBag.kategori[1].fotografAdi" alt="" height="200"></a>
+                        <div class="post-body" style="height:50px">
+
+                            <h3 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[1].id, kategoriId=ViewBag.kategori[1].kategoriId})">@ViewBag.kategori[1].baslik</a></h3>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="post " style="margin-top:-20px">
+                        <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[2].id, kategoriId=ViewBag.kategori[2].kategoriId})"><img src="~/Images/@ViewBag.kategori[2].fotografAdi" alt="" height="200"></a>
+                        <div class="post-body" style="height:50px;">
+
+                            <h3 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[2].id, kategoriId=ViewBag.kategori[2].kategoriId})">@ViewBag.kategori[2].baslik</a></h3>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    @for (var i = 3; i < ViewBag.kategori.Count; i++)
+                    {
+
+                        <div class="post post-row">
+                            <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[i].id, kategoriId=ViewBag.kategori[i].kategoriId})"><img src="~/Images/@ViewBag.kategori[i].fotografAdi" alt="" height="170"></a>
+                            <div class="post-body">
+
+                                <h3 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.kategori[i].id, kategoriId=ViewBag.kategori[i].kategoriId})">@ViewBag.kategori[i].baslik</a></h3>
+                                <ul class="post-meta">
+
+                                    <li>@ViewBag.kategori[i].tarih.ToString("dd.MM.yyyy")</li>
+                                </ul>
+                                <p>@ViewBag.kategori[i].altbaslik</p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+

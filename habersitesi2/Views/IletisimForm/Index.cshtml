@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="section-row">
+                    <div class="section-title">
+                        <h1 class="title"> İLETİŞİM </h1>
+
+                    </div>
+                    <div>
+                        <table border="1" class="table table-striped">
+                            <tr>
+                                <th>ID</th>
+                                <th>MAIL</th>
+                                <th>KONU</th>
+                                <th>MESAJ</th>
+                                <th>SİL</th>
+
+
+                            </tr>
+                            @foreach (var ilet in ViewBag.iletisim)
+                            {
+                                <tr>
+                                    <td>@ilet.id</td>
+                                    <td> @ilet.mail</td>
+                                    <td>@ilet.konu</td>
+
+                                    <td> @ilet.mesaj</td>
+
+                                    <td style="width:100px">
+                                        <a href="@Url.Action("Sil", "IletisimForm", new { iletid = ilet.id })" class="btn btn-danger"><i class="fa fa-close"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

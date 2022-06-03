@@ -1,0 +1,214 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+
+        <div id="hot-post" class="row hot-post">
+            <div class="col-md-8 hot-post-left ">
+
+
+                <!-- post -->
+                <div class="post post-thumb  ">
+                    <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.Haberler[0].id, kategoriId=ViewBag.Haberler[0].kategoriId})"><img src="~/Images/@ViewBag.Haberler[0].fotografAdi" alt=""></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="@Url.Action("Index", "HaberKategori", new { kid =ViewBag.Haberler[0].kategoriId })">@ViewBag.Haberler[0].kategoriAd</a>
+                        </div>
+                        <h1 class="post-title title-lg"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.Haberler[0].id,  kategoriId=ViewBag.Haberler[0].kategoriId })">@ViewBag.Haberler[0].baslik</a></h1>
+                        <ul class="post-meta">
+
+                            @*<li>@ViewBag.Haberler[0].tarih</li>*@
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <!-- /post -->
+            </div>
+            <div class="col-md-4 hot-post-right">
+                <div class="post post-thumb">
+                    <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.Haberler[1].id , kategoriId=ViewBag.Haberler[1].kategoriId})"><img src="~/Images/@ViewBag.Haberler[1].fotografAdi" alt=""></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="@Url.Action("Index", "HaberKategori", new { kid =ViewBag.Haberler[1].kategoriId })">@ViewBag.Haberler[1].kategoriAd</a>
+                        </div>
+                        <h2 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.Haberler[1].id, kategoriId=ViewBag.Haberler[1].kategoriId })">@ViewBag.Haberler[1].baslik</a></h2>
+                        <ul class="post-meta">
+                            @*<li>@ViewBag.Haberler[1].tarih</li>*@
+                        </ul>
+                    </div>
+                </div>
+                <div class="post post-thumb">
+                    <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.Haberler[2].id , kategoriId=ViewBag.Haberler[2].kategoriId})"><img src="~/Images/@ViewBag.Haberler[2].fotografAdi" alt="" height="210"></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="@Url.Action("Index", "HaberKategori", new { kid =ViewBag.Haberler[2].kategoriId })">@ViewBag.Haberler[2].kategoriAd</a>
+                        </div>
+                        <h2 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =ViewBag.Haberler[2].id , kategoriId=ViewBag.Haberler[2].kategoriId })">@ViewBag.Haberler[2].baslik</a></h2>
+                        <ul class="post-meta">
+                            @*<li>@ViewBag.Haberler[2].tarih</li>*@
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Güncel Haber -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h1 class="title">GÜNCEL HABERLER</h1>
+                        </div>
+                    </div>
+                    @foreach (var guncel in ViewBag.Guncel)
+                    {
+                        <div class="col-md-3 ">
+                            <div class="post">
+                                <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =guncel.id, kategoriId=guncel.kategoriId })"><img src="~/Images/@guncel.fotografAdi" height="200" alt=""></a>
+                                <div class="post-body">
+                                    <div class="post-category">
+                                        <a href="@Url.Action("Index", "HaberKategori", new { kid =guncel.kategoriId })">@guncel.kategoriAd</a>
+
+                                    </div>
+                                    <h4 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =guncel.id, kategoriId=guncel.kategoriId })">@guncel.baslik</a></h4>
+                                    <ul class="post-meta">
+
+                                        <li>@guncel.tarih.ToString("dd.MM.yyyy")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @*<div class="clearfix visible-md visible-lg"></div>*@
+                </div>
+                <!-- /Güncel Haber  -->
+                <!-- Ekonomi -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h1 class="title">EKONOMİ</h1>
+                        </div>
+                    </div>
+                    <!-- post -->
+                    @foreach (var eko in ViewBag.Ekonomi)
+                    {
+                        <div class="col-md-3">
+                            <div class="post post-sm">
+                                <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =eko.id , kategoriId=eko.kategoriId})"><img src="~/Images/@eko.fotografAdi" height="200" alt=""></a>
+                                <div class="post-body">
+
+                                    <h4 class="post-title title-sm"><a href="@Url.Action("Index", "HaberDetay", new { haberId =eko.id, kategoriId=eko.kategoriId })">@eko.baslik</a></h4>
+                                    <ul class="post-meta">
+
+                                        <li>@eko.tarih.ToString("dd.MM.yyyy")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <!-- /Ekonomi -->
+                <!-- Spor -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h1 class="title">SPOR</h1>
+                        </div>
+                    </div>
+                    @foreach (var spr in ViewBag.Spor)
+                    {
+                        <div class="col-md-3">
+                            <div class="post post-sm">
+                                <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =spr.id,kategoriId=spr.kategoriId })"><img src="~/Images/@spr.fotografAdi" height="200" alt=""></a>
+                                <div class="post-body">
+
+                                    <h4 class="post-title title-sm"><a href="@Url.Action("Index", "HaberDetay", new { haberId =spr.id,kategoriId=spr.kategoriId })">@spr.baslik</a></h4>
+                                    <ul class="post-meta">
+
+                                        <li>@spr.tarih.ToString("dd.MM.yyyy")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+                </div>
+                <!-- /Spor -->
+                <!-- Kültür Sanat -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h1 class="title">KÜLTÜR SANAT</h1>
+                        </div>
+                    </div>
+                    <!-- post -->
+                    @foreach (var kul in ViewBag.Kultur)
+                    {
+                        <div class="col-md-3">
+                            <div class="post post-sm">
+                                <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =kul.id,kategoriId=kul.kategoriId })"><img src="~/Images/@kul.fotografAdi" height="200" alt=""></a>
+                                <div class="post-body">
+
+                                    <h4 class="post-title title-sm"><a href="@Url.Action("Index", "HaberDetay", new { haberId =kul.id ,kategoriId=kul.kategoriId})">@kul.baslik</a></h4>
+                                    <ul class="post-meta">
+
+                                        <li>@kul.tarih.ToString("dd.MM.yyyy")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+                    <!-- /post -->
+                </div>
+                <!-- /Kültür Sanat -->
+                <!-- /Dünya -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h1 class="title">DÜNYA</h1>
+                        </div>
+                    </div>
+                    <!-- post -->
+                    @foreach (var dun in ViewBag.Dunya)
+                    {
+                        <div class="col-md-3">
+                            <div class="post post-sm">
+                                <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =dun.id, kategoriId=dun.kategoriId})"><img src="~/Images/@dun.fotografAdi" height="200" alt=""></a>
+                                <div class="post-body">
+
+                                    <h4 class="post-title title-sm"><a href="@Url.Action("Index", "HaberDetay", new { haberId =dun.id,kategoriId=dun.kategoriId })">@dun.baslik</a></h4>
+                                    <ul class="post-meta">
+
+                                        <li>@dun.tarih.ToString("dd.MM.yyyy")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+                    <!-- /post -->
+                </div>
+                <!-- /Dünya -->
+            </div>
+        </div>
+    </div>
+</div>
+
+

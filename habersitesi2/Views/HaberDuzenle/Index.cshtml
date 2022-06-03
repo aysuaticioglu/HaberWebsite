@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="section-row">
+                    <div class="section-title">
+                        <h1 class="title">  HABER DUZENLE </h1>
+                    </div>
+
+                    @foreach (var duz in ViewBag.haberler)
+                    {
+
+                        <form id="editnews" action="@Url.Action("Duzenle", "HaberDuzenle")" enctype="multipart/form-data" method="post" class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>BAŞLIK</p>
+                                        <input class="input" type="text" name="baslik" value="@duz.baslik">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>ALT BAŞLIK</p>
+                                        <textarea class="input" name="altbaslik" rows="10">@duz.altbaslik</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>İÇERİK</p>
+                                        <textarea class="icerik" name="icerik">@duz.icerik</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>FOTOĞRAF</p>
+                                        <img src="~/Images/@duz.fotografAdi" style="width:300px" />
+                                        <input class="input" type="hidden" name="fotografAdi" value="@duz.fotografAdi">
+                                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fotograf">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>KATEGORİ</p>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="kategoriId">
+                                            @foreach (var kat in ViewBag.kategori)
+                                            {
+                                                <option @(duz.kategoriId == kat.id ? "selected" : "") value="@kat.id">@kat.KategoriAd</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>MANŞET</p>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="mansetId">
+                                            @foreach (var man in ViewBag.manset)
+                                            {
+
+                                                <option @(duz.mansetId == man.id ? "selected" : "") value="@man.id">@man.MansetAd</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>TARİH</p>
+                                        <input class="input" type="date" name="tarih" value="@duz.tarih">
+                                        <input class="input" type="hidden" name="id" value="@duz.id">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="primary-button" name="kaydet">Düzenle</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+

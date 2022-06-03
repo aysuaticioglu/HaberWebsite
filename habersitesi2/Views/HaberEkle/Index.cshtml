@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row" style="margin-left:5px;" >
+            <div class="col-md-12">
+
+                <div class="section-row">
+                    <div class="section-title">
+                        <h1 class="title">  HABER EKLE </h1>
+                    </div>
+                    <form id="editnews" action="@Url.Action("HaberKaydet", "HaberEkle")" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>BAŞLIK</p>
+                                    <input class="input" type="text" name="baslik">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>ALT BAŞLIK</p>
+                                    <textarea class="input" name="altbaslik" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>İÇERİK</p>
+                                    <textarea class="icerik" name="icerik"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>FOTOĞRAF</p>
+                                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="fotograf">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>KATEGORİ</p>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="kategoriId">
+                                        @foreach (var kat in ViewBag.kategori)
+                                        {
+
+                                            <option value="@kat.id">@kat.KategoriAd</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>MANŞET</p>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="mansetId">
+                                        @foreach (var man in ViewBag.manset)
+                                        {
+
+                                            <option value="@man.id">@man.MansetAd</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>TARİH</p>
+                                    <input class="input" type="date" name="tarih">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="submit" class="primary-button" name="kaydet">Kaydet</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="section-title">
+                                <h1 class="title">  HABERLER </h1>
+                            </div>
+                            <table border="1" class="table table-striped">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>BAŞLIK</th>
+                                    <th>ALT BAŞLIK</th>
+                                    @*<th>İÇERİK</th>*@
+                                    @*<th>FOTOGRAF</th>*@
+                                    <th>KATEGORİ ADI</th>
+                                    <th>MANSET ADI</th>
+                                    <th>TARİH</th>
+                                    <th>İŞLEMLER</th>
+
+                                </tr>
+                                @foreach (var ic in ViewBag.icerik)
+                                {
+                                    <tr>
+                                        <td>@ic.id</td>
+                                        <td> @ic.baslik</td>
+                                        <td>@ic.altbaslik</td>
+                                        @*<td> @ic.icerik</td>*@
+                                        @*<td>@ic.fotograf</td>*@
+                                        <td> @ic.kategoriAd</td>
+                                        <td> @ic.mansetAd</td>
+                                        <td> @ic.tarih.ToString("dd.MM.yyyy")</td>
+                                        <td style="width:100px">
+                                            <a href="@Url.Action("Index", "HaberDuzenle", new { haberId = ic.id })" class="btn btn-success"><i class="fa fa-edit"></i> </a> <a href="@Url.Action("HaberSil", "HaberEkle", new { haberId = ic.id })" class="btn btn-danger"><i class="fa fa-close"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+

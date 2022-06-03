@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            var haberId=@ViewBag.icerik[0].id;
+            $("#btnYorumKaydet").click(function () {
+
+                var mesaj = $("#txtYorumMesaj").val();
+                var isim = $("#txtYorumIsim").val();
+                if (mesaj == "" || isim == "") {
+                    $("#uyari").html("Mesaj ve isim alanı boş olamaz");
+                }
+                else
+                {
+                    $("#uyari").html("");
+                $.ajax({
+                    url: '/HaberEkle/YorumEkle',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { isim: isim, yorum: mesaj, haberId: haberId },
+                    success: function (gelenveri) {
+                        var gelenveri = gelenveri;
+                        if (gelenveri.Success == true) {
+                            $("#uyariSuccess").html("Yorumunuz Alındı");
+
+                        }
+
+                    },
+                    error: function (hata) {}
+
+                });
+                }
+
+
+            })
+
+
+
+            $.ajax({
+                url: '/HaberEkle/YorumOku',
+                type: 'POST',
+                dataType: 'json',
+                data: { haberId: haberId },
+                success: function (gelenveri) {
+                    var yorumHtml = "";
+                    var yorumilk = "";
+                    $.each(gelenveri.Yorumlar, function (i, val) {
+
+                        var date = new Date(val.tarih);
+
+                        yorumHtml += ' <div class="post-comments  " ><div class="media"><div class="media-body "> <div class="media-heading ">' +
+                            '<h4 style="padding-left:10px;"><i class="fa fa-chevron-right" ></i>&nbsp;' + val.isim + '</h4 > <span class="time">' + val.tarih + '</span></div > <p style="padding-left:30px">' + val.yorum + '</p></div ></div ></div > ';
+
+
+                    });
+
+                    if (yorumHtml == "") {
+
+                        yorumilk += '  <h3 class="title" >İLK YORUMU SİZ  YAPIN</h3>';
+                    }
+                    else {
+
+                        yorumilk += '  <h3 class="title" >YORUM YAPIN</h3>';
+                    }
+                    $("#yorumlardiv").html(yorumHtml);
+
+                      $("#ilk").html(yorumilk);
+
+
+                },
+                error: function (hata) { }
+
+            });
+          });
+
+    </script>
+}
+
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="post post-thumb">
+                    <a class="post-img" href="#"><img src="~/Images/@ViewBag.icerik[0].fotografAdi" alt="" height="430"></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="@Url.Action("Index", "HaberKategori", new { kid =ViewBag.icerik[0].kategoriId })">@ViewBag.icerik[0].kategoriAd</a>
+
+                        </div>
+                        <h3 class="post-title title-lg"><a href="#">@ViewBag.icerik[0].baslik</a></h3>
+                        <ul class="post-meta">
+
+                            <li>@ViewBag.icerik[0].tarih.ToString("dd.MM.yyyy")</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section-row">
+                    <h3>@ViewBag.icerik[0].altbaslik</h3>
+
+                    <p>@Html.Raw(ViewBag.icerik[0].icerik)</p>
+                </div>
+
+                <div class="section-row">
+                    <div class="section-title" id="ilk">
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <textarea class="input" id="txtYorumMesaj" placeholder="Bu haber hakkında ne düşünüyorsunuz?"></textarea>
+                            <input class="input" type="text" id="txtYorumIsim" placeholder="İsminiz">
+                            <span id="uyari" style="color:red"></span>
+                            <span id="uyariSuccess" style="color:green"></span>
+                            <br /><br />
+                            <button id="btnYorumKaydet" class="primary-button">GÖNDER</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-title ">
+                    <h2 class="title ">HABER YORUMLARI</h2>
+                </div>
+
+                <div class="section-row" id="yorumlardiv">
+
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2 class="title">Benzer Haberler</h2>
+                    </div>
+
+                    @foreach (var kat in ViewBag.kategori)
+                    {
+                        <div class="post post-widget">
+                            <a class="post-img" href="@Url.Action("Index", "HaberDetay", new { haberId =kat.id, kategoriId=kat.kategoriId})"><img src="~/Images/@kat.fotografAdi" alt=""></a>
+                            <div class="post-body">
+                                <div class="post-category">
+                                    <a href="@Url.Action("Index", "HaberKategori", new { kid =kat.kategoriId })">@kat.kategoriAd</a>
+                                </div>
+                                <h3 class="post-title"><a href="@Url.Action("Index", "HaberDetay", new { haberId =kat.id, kategoriId=kat.kategoriId})">@kat.baslik</a></h3>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
